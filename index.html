@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SQL Query Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe4ec; /* light pink */
+      color: #3a2a3a;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      color: #d72660;
+      margin: 30px 0 24px 0;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+    .box {
+      background: #fff0f6;
+      border-radius: 8px;
+      padding: 18px 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px #f8bbd0;
+      border-left: 4px solid #d72660;
+    }
+    h3 {
+      color: #d72660;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    button {
+      background: #d72660;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 7px 18px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    button:hover {
+      background: #ffb7c5;
+      color: #d72660;
+    }
+    .query {
+      background: #f8bbd0;
+      color: #d72660;
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      margin-top: 8px;
+      font-size: 1em;
+    }
+    .output {
+      margin-top: 10px;
+      background: #ffe4ec;
+      padding: 8px 10px;
+      border-radius: 4px;
+      color: #d72660;
+      font-family: monospace;
+      font-weight: bold;
+      border-left: 4px solid #d72660;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>SQL Query Simulator</h2>
+  <div class="container">
+    <div class="box">
+      <h3>1. Create Database "library"</h3>
+      <button onclick="runQuery('createDB')">Run</button>
+      <div class="query" id="q1"></div>
+      <div class="output" id="o1"></div>
+    </div>
+    <div class="box">
+      <h3>2. Drop Database "library"</h3>
+      <button onclick="runQuery('dropDB')">Run</button>
+      <div class="query" id="q2"></div>
+      <div class="output" id="o2"></div>
+    </div>
+    <div class="box">
+      <h3>3. Create Table "book_records"</h3>
+      <button onclick="runQuery('createTable')">Run</button>
+      <div class="query" id="q3"></div>
+      <div class="output" id="o3"></div>
+    </div>
+    <div class="box">
+      <h3>4. Drop Table "book_records"</h3>
+      <button onclick="runQuery('dropTable')">Run</button>
+      <div class="query" id="q4"></div>
+      <div class="output" id="o4"></div>
+    </div>
+  </div>
+
+  <script>
+    function runQuery(type) {
+      let query = "", output = "", qEl, oEl;
+      switch (type) {
+        case "createDB":
+          query = "CREATE DATABASE library;";
+          output = "✅ Database 'library' created successfully.";
+          qEl = "q1"; oEl = "o1";
+          break;
+        case "dropDB":
+          query = "DROP DATABASE library;";
+          output = "⚠️ Database 'library' dropped.";
+          qEl = "q2"; oEl = "o2";
+          break;
+        case "createTable":
+          query = `CREATE TABLE book_records (
+  Book_Library_No INT PRIMARY KEY,
+  Book_Name VARCHAR(100),
+  Author_Name VARCHAR(100),
+  Book_Edition VARCHAR(50),
+  Price DECIMAL(8,2)
+);`;
+          output = "✅ Table 'book_records' created successfully.";
+          qEl = "q3"; oEl = "o3";
+          break;
+        case "dropTable":
+          query = "DROP TABLE book_records;";
+          output = "⚠️ Table 'book_records' dropped.";
+          qEl = "q4"; oEl = "o4";
+          break;
+      }
+      document.getElementById(qEl).textContent = query;
+      document.getElementById(oEl).textContent = output;
+    }
+  </script>
+
+</body>
+</html>
